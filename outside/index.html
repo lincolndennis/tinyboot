@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+  body {
+    margin: 25px;
+    padding: 25px;
+  }
+
+  .content {
+    margin: 25px;
+    padding: 25px;
+  }
+
+  #document {
+    border: 1px solid gray;
+    margin: 25px;
+    padding: 25px;
+  }
+  </style>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+   <script src="https://cdn.tiny.cloud/1/olayhq3egaat8n1xm0zjleclyytx387nwra71on76g6y45qp/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+   <script>
+
+      function handleSave(){
+        setBodyContent()
+        $('#exampleModal').modal('toggle')
+      }
+
+      function setBodyContent(){
+        console.log(document.getElementById('document'))
+         document.getElementById('document').textContent = tinymce.activeEditor.getContent();
+      }
+
+     tinymce.init({
+       selector: "textarea",
+       height: 300,
+       plugins: [
+           "advlist autolink lists link image charmap print preview anchor",
+           "searchreplace visualblocks code fullscreen",
+           "insertdatetime media table paste"
+       ],
+       toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+   });
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Using TinyMCE in Bootstrap</title>
+</head>
+
+<body>
+
+<h1>TinyMCE in a Boostrap Modal!</h1>
+<p><a href="/">Go Back</a></p>
+<p><a href="https://getbootstrap.com/docs/4.4/components/modal/#live-demo">Example from Bootstrap</a></p>
+
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+
+<div class="content">
+  <h1>Editor HTML:</h1>
+  <div id="document"></div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">TinyMCE Version: <span id="major-version"></span>.<span id="minor-version"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="dump.php">
+          <textarea name="content"></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" onclick="handleSave()" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  var majorVersion = document.getElementById('major-version');
+  majorVersion.innerText = tinymce.majorVersion;
+
+  var minorVersion = document.getElementById('minor-version');
+  minorVersion.innerText = tinymce.minorVersion;
+
+</script>
+
+</body>
+</html>
